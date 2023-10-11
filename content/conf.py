@@ -10,18 +10,18 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
 
-project = "LESSON NAME"
-copyright = "2020, The contributors"
-author = "The contributors"
-github_user = "coderefinery"
-github_repo_name = ""  # auto-detected from dirname if blank
+project = "Post-Quantum Cryptography"
+copyright = "2023, EuroCC National Competence Center Sweden at RISE Research Institutes of Sweden"
+author = "Anastasiia Andriievska"
+github_user = "enccs"
+github_repo_name = "pqc"  # auto-detected from dirname if blank
 github_version = "main"
 conf_py_path = "/content/"  # with leading and trailing slash
 
@@ -34,8 +34,8 @@ extensions = [
     # githubpages just adds a .nojekyll file
     "sphinx.ext.githubpages",
     "sphinx_lesson",
-    # remove once sphinx_rtd_theme updated for contrast and accessibility:
-    "sphinx_rtd_theme_ext_color_contrast",
+    "sphinx_book_theme",
+    "sphinx.ext.todo",
 ]
 
 # Settings for myst_nb:
@@ -52,6 +52,7 @@ jupyter_execute_notebooks = "cache"
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = [
+    "code*",
     "README*",
     "_build",
     "Thumbs.db",
@@ -67,6 +68,10 @@ exclude_patterns = [
 # a list of builtin themes.
 #
 html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_book_theme"
+html_logo = "img/ENCCS.jpg"
+html_favicon = "img/favicon.ico"
+html_title = project
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
@@ -87,6 +92,8 @@ html_context = {
     "conf_py_path": conf_py_path,
 }
 
+todo_include_todos = True
+
 # Intersphinx mapping.  For example, with this you can use
 # :py:mod:`multiprocessing` to link straight to the Python docs of that module.
 # List all available references:
@@ -101,3 +108,9 @@ html_context = {
 #    #'matplotlib': ('https://matplotlib.org/', None),
 #    'seaborn': ('https://seaborn.pydata.org/', None),
 # }
+
+import os
+if os.environ.get('GITHUB_REF', '') == 'refs/heads/main':
+    html_js_files = [
+        ('https://plausible.io/js/script.js', {"data-domain": "enccs.github.io/pqc", "defer": "defer"}),
+    ]    
